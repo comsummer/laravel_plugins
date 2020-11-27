@@ -31,12 +31,6 @@ class ProcessPodcast implements ShouldQueue
      */
     public function handle()
     {
-        //
-        $i = 0;
-        while ($i < 10) {
-            echo "{$i}";
-            $i++;
-            sleep(1);
-        }
+        echo "test Podcast";
     }
 }
