@@ -36,7 +36,6 @@ class ProcessPodcast implements ShouldQueue
         while ($i < 10) {
             echo "{$i}";
             $i++;
-//            file_put_contents("e:\process_text.txt", $i . "\n", FILE_APPEND);
             sleep(1);
         }
     }
