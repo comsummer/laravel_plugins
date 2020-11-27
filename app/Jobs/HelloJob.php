@@ -32,6 +32,8 @@ class HelloJob implements ShouldQueue
     public function handle()
     {
         //
-        echo "hello " . $this->msg;
+        $msg = "hello " . $this->msg;
+        file_put_contents("/tmp/hello_queue", $msg . "\n", FILE_APPEND);
+        echo $msg;
     }
 }
