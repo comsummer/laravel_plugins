@@ -6,6 +6,7 @@
  * Time: 下午 05:28
  */
 namespace App\Admin\Controllers;
+use App\Jobs\ExceedJob;
 use App\Jobs\HelloJob;
 use App\Jobs\ProcessPodcast;
 use Encore\Admin\Controllers\AdminController;
@@ -15,7 +16,7 @@ class JobTesController extends AdminController
 {
     public function tt()
     {
-        ProcessPodcast::dispatch();
+        ProcessPodcast::dispatch()->onConnection("queue");
     }
 
     public function c()
@@ -28,8 +29,11 @@ class JobTesController extends AdminController
     {
         $queueName = $request->get("queue");
         $job = $request->get("job");
+        //创建延迟队列
+        $delay = $request->get("delay", 0);
 
 //        HelloJob::dispatch($job)->onQueue("hello");
-        HelloJob::dispatch($job)->onQueue($queueName);
+        $delay ? ExceedJob::dispatch($job)->delay($delay)->onQueue($queueName)
+            : HelloJob::dispatch($job)->onQueue($queueName);
     }
 }

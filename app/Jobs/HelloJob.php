@@ -13,6 +13,7 @@ class HelloJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $msg = '';
+    public $tries = 5;
     /**
      * Create a new job instance.
      *
@@ -32,8 +33,28 @@ class HelloJob implements ShouldQueue
     public function handle()
     {
         //
-        $msg = "hello " . $this->msg;
-        file_put_contents("/tmp/hello_queue", $msg . "\n", FILE_APPEND);
-        echo $msg;
+//        try {
+            $msg = "hello " . $this->msg;
+            file_put_contents("/tmp/hello_queue", $msg . "\n", FILE_APPEND);
+            echo $msg;
+//        } catch (\Exception $exception) {
+//            echo "something wrong " . $exception->getMessage();
+//        }
     }
+
+    public function failed(\Exception $exception)
+    {
+        echo "helloJob execute failed " . $exception->getMessage();
+    }
+
+    /**
+     * 自定义标签
+     * @return array
+     */
+    public function tags()
+    {
+        //定义多个标签
+        return ['render', 'msg:' . md5($this->msg)];
+    }
+
 }
