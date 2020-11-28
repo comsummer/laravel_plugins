@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\WriteJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,6 +29,8 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 //        $schedule->command('horizon:snapshot')->everyFiveMinutes();
         $schedule->command('horizon:snapshot')->everyMinute();
+        //每分钟执行队列任务
+        $schedule->job(new WriteJob())->everyMinute();
     }
 
     /**
