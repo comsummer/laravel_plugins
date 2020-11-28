@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('horizon:snapshot')->everyFiveMinutes();
         $schedule->command('horizon:snapshot')->everyMinute();
         //每分钟执行队列任务
-        $schedule->job(new WriteJob())->everyMinute();
+        $schedule->job(new WriteJob(), "hello")->everyMinute();
     }
 
     /**
