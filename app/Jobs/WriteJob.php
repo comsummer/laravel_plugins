@@ -30,7 +30,7 @@ class WriteJob implements ShouldQueue
     public function handle()
     {
         //
-        $randContent = date("Y-m-d H:i:s") . " execute current job " . mt_rand(1000, 9999);
+        $randContent = date("Y-m-d H:i:s") . " execute current job " . mt_rand(1000, 9999) . "\n";
         file_put_contents("/tmp/scheduled_job_run.log", $randContent, FILE_APPEND);
     }
 }
