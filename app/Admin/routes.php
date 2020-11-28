@@ -18,4 +18,5 @@ Route::group([
     $router->get("/tt", "JobTesController@tt");
     $router->get("/c", "JobTesController@c");
     $router->get("/jobHello", "JobTesController@customQueueJob");
+    $router->get("/randJob", "JobTesController@generateRandJob");
 });
